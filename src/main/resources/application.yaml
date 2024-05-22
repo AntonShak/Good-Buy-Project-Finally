@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: good-buy-project
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: goodbuy
+    password: goodbuy
+    driver-class-name: org.postgresql.Driver
+
