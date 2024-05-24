@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IT
 @RequiredArgsConstructor
 @AutoConfigureMockMvc
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class UserControllerTest {
 
     @Autowired
