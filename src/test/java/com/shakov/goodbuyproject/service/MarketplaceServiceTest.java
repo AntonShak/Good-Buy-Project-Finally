@@ -2,7 +2,7 @@ package com.shakov.goodbuyproject.service;
 
 import com.shakov.goodbuyproject.database.entity.Marketplace;
 import com.shakov.goodbuyproject.database.repository.MarketplaceRepository;
-import com.shakov.goodbuyproject.dto.MarketplaceReadDto;
+import com.shakov.goodbuyproject.dto.MarketplaceReadCreateEditDto;
 import com.shakov.goodbuyproject.mapper.MarkeplaceReadDtoMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,15 +34,15 @@ class MarketplaceServiceTest {
         doReturn(Optional.of(new Marketplace(MARKETPLACE_ID, "Wildberries", Collections.emptyList())))
                 .when(marketplaceRepository).findById(MARKETPLACE_ID);
 
-        doReturn(new MarketplaceReadDto("Wildberries"))
+        doReturn(new MarketplaceReadCreateEditDto("Wildberries"))
                 .when(markeplaceReadDtoMapper)
                 .map(new Marketplace(MARKETPLACE_ID, "Wildberries", Collections.emptyList()));
 
-        Optional<MarketplaceReadDto> actualResult = marketplaceService.findById(MARKETPLACE_ID);
+        Optional<MarketplaceReadCreateEditDto> actualResult = marketplaceService.findById(MARKETPLACE_ID);
 
         assertTrue(actualResult.isPresent());
 
-        var expectedResult = new MarketplaceReadDto("Wildberries");
+        var expectedResult = new MarketplaceReadCreateEditDto("Wildberries");
 
         actualResult.ifPresent(actual -> assertEquals(expectedResult, actual));
     }
