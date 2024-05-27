@@ -4,12 +4,10 @@ import com.shakov.goodbuyproject.database.entity.Marketplace;
 import com.shakov.goodbuyproject.database.repository.MarketplaceRepository;
 import com.shakov.goodbuyproject.dto.MarketplaceReadDto;
 import com.shakov.goodbuyproject.mapper.MarkeplaceReadDtoMapper;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;

@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @ToString(exclude = "userMarketplaces")
-@EqualsAndHashCode(of = "username")
+@EqualsAndHashCode(of = "username", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
