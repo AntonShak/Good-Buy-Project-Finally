@@ -2,6 +2,7 @@ package com.shakov.goodbuyproject.integrartion.http.controller;
 
 import com.shakov.goodbuyproject.database.entity.Role;
 
+import com.shakov.goodbuyproject.integrartion.IntegrationTestBase;
 import com.shakov.goodbuyproject.integrartion.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IT
 @RequiredArgsConstructor
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserControllerTest extends IntegrationTestBase {
 
     @Autowired
     private final MockMvc mockMvc;
