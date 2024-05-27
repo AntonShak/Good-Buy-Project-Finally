@@ -16,3 +16,7 @@ spring:
         hbm2ddl:
           auto: validate
     open-in-view: false
+
+  liquibase:
+    change-log: db/changelog/db.changelog-master.yaml
+
