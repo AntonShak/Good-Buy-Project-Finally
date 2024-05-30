@@ -1,5 +1,6 @@
 package com.shakov.goodbuyproject.http.controller;
 
+import com.shakov.goodbuyproject.database.entity.Role;
 import com.shakov.goodbuyproject.dto.UserCreateEditDto;
 import com.shakov.goodbuyproject.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,17 +21,18 @@ public class UserController {
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
-        return "users";
+        return "user/users";
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
-
         return userService.findById(id)
                 .map(user -> {
-                    model.addAttribute("user", userService.findById(id));
-                    return "redirect:user/{id}";
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                    model.addAttribute("user", user);
+                    model.addAttribute("roles", Role.values());
+                    return "user/user";
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
     }
 
@@ -38,22 +40,22 @@ public class UserController {
 //    @ResponseStatus(HttpStatus.CREATED)
     public String create(@ModelAttribute UserCreateEditDto userCreateEditDto) {
 
-        return "redirect:users/" + userService.create(userCreateEditDto).getId();
+        return "redirect:user/users/" + userService.create(userCreateEditDto).getId();
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateEditDto userCreateEditDto) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateEditDto user) {
 
-        return userService.update(id, userCreateEditDto)
-                .map(user -> "redirect:users/{id}")
+        return userService.update(id, user)
+                .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
 
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable Long id) {
-        if(!userService.delete(id)) {
+    public String delete(@PathVariable("id") Long id) {
+        if (!userService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return "redirect:/users";
