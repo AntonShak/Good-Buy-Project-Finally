@@ -1,13 +1,14 @@
 package com.shakov.goodbuyproject.http.controller;
 
 
-import com.shakov.goodbuyproject.database.entity.Role;
+
 import com.shakov.goodbuyproject.dto.UserCreateEditDto;
 import com.shakov.goodbuyproject.service.UserService;
 import com.shakov.goodbuyproject.validation.groups.CreateAction;
 import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import static com.shakov.goodbuyproject.database.entity.Role.*;
 
 
 @Controller
@@ -26,6 +29,7 @@ public class UserController {
 
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
         return "user/users";
@@ -36,7 +40,7 @@ public class UserController {
         return userService.findById(id)
                 .map(user -> {
                     model.addAttribute("user", user);
-                    model.addAttribute("roles", Role.values());
+                    model.addAttribute("roles", values());
                     return "user/user";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -47,7 +51,7 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
         model.addAttribute("user", user);
-        model.addAttribute("roles", Role.values());
+        model.addAttribute("roles", values());
         return "user/registration";
     }
 
@@ -66,6 +70,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/update")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String update(@PathVariable("id") Long id, @ModelAttribute @Validated UserCreateEditDto user) {
 
         return userService.update(id, user)
@@ -76,6 +81,7 @@ public class UserController {
 
 
     @PostMapping("/{id}/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String delete(@PathVariable("id") Long id) {
         if (!userService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
