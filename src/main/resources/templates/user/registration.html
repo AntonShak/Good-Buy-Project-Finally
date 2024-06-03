@@ -21,9 +21,15 @@
     <label for="phone">Phone:
         <input id="phone" type="text" name="phone" th:value="*{phone}">
     </label><br>
+    <label th:for="${role}">Roles:</label>
     <div th:each="role : ${roles}">
+        <label th:for="${role}">
         <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+        </label>
         <label th:for="${role}" th:text="${role}">Role name</label>
+    </div>
+    <div th:if="${errors}">
+        <p style="color: red"  th:each="error: ${errors}" th:text="${error.defaultMessage}">Error message</p>
     </div>
     <button type="submit">Register</button>
 </form>
