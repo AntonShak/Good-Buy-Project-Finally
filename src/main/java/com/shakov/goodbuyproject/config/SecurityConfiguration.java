@@ -18,7 +18,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
                 http.csrf(AbstractHttpConfigurer::disable)
-                        .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
+                        .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+                        .logout(logout -> logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/login")
+                                .deleteCookies("JSESSIONID"));
         return http.formLogin(login -> login.loginPage("/login")
                 .defaultSuccessUrl("/users")
                 .permitAll()).build();
