@@ -1,8 +1,11 @@
 package com.shakov.goodbuyproject.http.controller;
 
+
 import com.shakov.goodbuyproject.database.entity.Role;
 import com.shakov.goodbuyproject.dto.UserCreateEditDto;
 import com.shakov.goodbuyproject.service.UserService;
+import com.shakov.goodbuyproject.validation.groups.CreateAction;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -49,7 +53,7 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute @Validated UserCreateEditDto userCreateEditDto,
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class})UserCreateEditDto userCreateEditDto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()) {
@@ -57,7 +61,8 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/users/registration";
         }
-        return "redirect:/users/" + userService.create(userCreateEditDto).getId();
+        userService.create(userCreateEditDto);
+        return "redirect:/login";
     }
 
     @PostMapping("/{id}/update")

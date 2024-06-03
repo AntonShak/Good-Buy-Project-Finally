@@ -1,8 +1,9 @@
 package com.shakov.goodbuyproject.dto;
 
 import com.shakov.goodbuyproject.database.entity.Role;
+import com.shakov.goodbuyproject.validation.groups.CreateAction;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Value;
@@ -17,14 +18,22 @@ public class UserCreateEditDto {
 
     @Email
     String username;
+
+    @NotBlank(groups = CreateAction.class)
+    String rawPassword;
+
     LocalDate birthDate;
-    @NotNull
+
+    @NotBlank
     @Size(min = 2, max = 64)
     String firstname;
-    @NotNull
+
+    @NotBlank
     @Size(min = 2, max = 64)
     String lastname;
-    @NotNull
+
+    @NotBlank
     String phone;
+
     Role role;
 }
