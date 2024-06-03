@@ -36,11 +36,19 @@ public class UserController {
 
     }
 
+
+    @GetMapping("/registration")
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        return "user/registration";
+    }
+
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
     public String create(@ModelAttribute UserCreateEditDto userCreateEditDto) {
 
-        return "redirect:user/users/" + userService.create(userCreateEditDto).getId();
+        return "redirect:/users/" + userService.create(userCreateEditDto).getId();
     }
 
     @PostMapping("/{id}/update")
