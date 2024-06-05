@@ -20,3 +20,14 @@ spring:
   liquibase:
     change-log: db/changelog/db.changelog-master.yaml
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 398564975581-oolh40nm3h0469ulep91rnmtkvh9j6ur.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            scope: openid, email, profile
+
+
