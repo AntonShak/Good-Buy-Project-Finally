@@ -2,6 +2,7 @@ package com.shakov.goodbuyproject.integrartion;
 
 import com.shakov.goodbuyproject.integrartion.annotation.IT;
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -15,6 +16,7 @@ import org.testcontainers.utility.DockerImageName;
 @Sql({
         "classpath:sql/data.sql"
 })
+@WithMockUser(username = "test@gmail.com", password = "test", authorities = {"ADMIN", "USER"})
 public class IntegrationTestBase {
 
     @Container

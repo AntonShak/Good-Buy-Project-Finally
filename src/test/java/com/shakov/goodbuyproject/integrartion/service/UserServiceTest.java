@@ -7,7 +7,6 @@ import com.shakov.goodbuyproject.integrartion.IntegrationTestBase;
 import com.shakov.goodbuyproject.integrartion.annotation.IT;
 import com.shakov.goodbuyproject.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -51,6 +50,7 @@ public class UserServiceTest extends IntegrationTestBase  {
     private static UserCreateEditDto createUserCreateEditDto() {
         return UserCreateEditDto.builder()
                 .username("test@gmail.com")
+                .rawPassword("test")
                 .firstname("Test")
                 .lastname("Test")
                 .birthDate(LocalDate.now())
