@@ -47,4 +47,16 @@ public class ProductService {
                 .map(productReadDtoMapper::map);
     }
 
+    @Transactional
+    public boolean delete(Long id) {
+
+        return productRepository.findById(id)
+                .map(entity -> {
+                    productRepository.delete(entity);
+                    productRepository.flush();
+                    return true;
+                })
+                .orElse(false);
+    }
+
 }
