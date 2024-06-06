@@ -1,10 +1,8 @@
 package com.shakov.goodbuyproject.service;
 
-
 import com.shakov.goodbuyproject.database.repository.ProductRepository;
-import com.shakov.goodbuyproject.dto.ProductCreateEditDto;
 import com.shakov.goodbuyproject.dto.ProductReadDto;
-import com.shakov.goodbuyproject.mapper.ProductFromCreateEditDtoMapper;
+import com.shakov.goodbuyproject.mapper.ProductFromEditDtoMapper;
 import com.shakov.goodbuyproject.mapper.ProductReadDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,14 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductReadDtoMapper productReadDtoMapper;
-    private final ProductFromCreateEditDtoMapper productFromCreateEditDtoMapper;
+    private final ProductFromEditDtoMapper productFromEditDtoMapper;
+
+
+
+    public List<ProductReadDto> findAllProductsByUsername(String username) {
+        return productRepository.findAllProductsByUsername(username).stream()
+                .map(productReadDtoMapper::map).toList();
+    }
 
 
     public Optional<ProductReadDto> findById(Long id) {
@@ -31,14 +36,6 @@ public class ProductService {
     public List<ProductReadDto> findAll() {
         return productRepository.findAll().stream()
                 .map(productReadDtoMapper::map).toList();
-    }
-
-    public ProductReadDto create(ProductCreateEditDto productCreateEditDto) {
-        return Optional.of(productCreateEditDto)
-                .map(productFromCreateEditDtoMapper::map)
-                .map(productRepository::save)
-                .map(productReadDtoMapper::map)
-                .orElseThrow();
     }
 
 }

@@ -5,14 +5,9 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ProductReadDto {
+public class ProductCreateDto {
 
-    Long id;
     String vendorCode;
-    String customer;
-    String marketplace;
-    String name;
-    String description;
-    Double price;
     Integer discount;
+
 }

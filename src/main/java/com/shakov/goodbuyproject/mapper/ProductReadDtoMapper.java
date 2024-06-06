@@ -14,12 +14,13 @@ public class ProductReadDtoMapper implements Mapper<Product, ProductReadDto> {
     public ProductReadDto map(Product from) {
 
         return ProductReadDto.builder()
+                .id(from.getId())
                 .vendorCode(from.getVendorCode())
                 .name(from.getName())
                 .description(from.getDescription())
                 .price(from.getPrice())
                 .discount(from.getDiscount())
-                .customer(from.getCustomer().getLastname())
+                .customer(from.getCustomer().getUsername())
                 .marketplace(from.getMarketplace().getName())
                 .build();
     }

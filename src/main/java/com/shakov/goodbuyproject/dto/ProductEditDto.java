@@ -5,9 +5,10 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ProductCreateEditDto {
+public class ProductEditDto {
 
-    String vendorCode;
     Integer discount;
+    String name;
+    String description;
 
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product</title>
+</head>
+<body>
+<div th:insert="~{fragment::header}"></div>
+<br/>
+<p th:text="|It is info about your product - ${product.name}|">Hello user</p>
+<br/>
+<br/>
+<form th:action="@{/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">
+    <p th:text="|Marketplace: *{marketplace}|">Marketplace</p>
+    <p th:text="|VendorCode: *{vendorCode}|">VendorCode</p>
+    <label for="name">Name:
+        <input id="name" type="text" name="name" th:value="*{name}">
+    </label>
+    <br/>
+    <br/>
+    <label for="description">Description:
+        <input th:size="*{description.length()+1}" id="description" type="text" name="name" th:value="*{description}">
+    </label>
+    <p th:text="|Start price: *{price}|">Price</p>
+    <label for="discount">Discount:
+        <input id="discount" type="text" name="name" th:value="*{discount}">
+    </label>
+    <button type="submit">Update</button>
+</form>
+</body>
+
+</html>
