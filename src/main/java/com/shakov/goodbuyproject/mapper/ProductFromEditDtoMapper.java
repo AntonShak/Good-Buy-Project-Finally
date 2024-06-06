@@ -22,11 +22,11 @@ public class ProductFromEditDtoMapper implements Mapper<ProductEditDto, Product>
 
 
     private void copyInProduct(ProductEditDto object, Product product) {
-        product.setId(product.getId());
-        product.setMarketplace(product.getMarketplace());
-        product.setCustomer(product.getCustomer());
-        product.setImage(product.getImage());
-        product.setPrice(product.getPrice());
+//        product.setId(product.getId());
+//        product.setMarketplace(product.getMarketplace());
+//        product.setCustomer(product.getCustomer());
+//        product.setImage(product.getImage());
+//        product.setPrice(product.getPrice());
         product.setName(object.getName());
         product.setDescription(object.getDescription());
         product.setDiscount(object.getDiscount());

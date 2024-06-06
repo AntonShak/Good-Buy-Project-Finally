@@ -1,6 +1,7 @@
 package com.shakov.goodbuyproject.service;
 
 import com.shakov.goodbuyproject.database.repository.ProductRepository;
+import com.shakov.goodbuyproject.dto.ProductEditDto;
 import com.shakov.goodbuyproject.dto.ProductReadDto;
 import com.shakov.goodbuyproject.mapper.ProductFromEditDtoMapper;
 import com.shakov.goodbuyproject.mapper.ProductReadDtoMapper;
@@ -36,6 +37,14 @@ public class ProductService {
     public List<ProductReadDto> findAll() {
         return productRepository.findAll().stream()
                 .map(productReadDtoMapper::map).toList();
+    }
+
+    @Transactional
+    public Optional<ProductReadDto> update(Long id, ProductEditDto productEditDto) {
+        return productRepository.findById(id)
+                .map(product -> productFromEditDtoMapper.map(productEditDto, product))
+                .map(productRepository::saveAndFlush)
+                .map(productReadDtoMapper::map);
     }
 
 }

@@ -10,21 +10,25 @@
 <p th:text="|It is info about your product - ${product.name}|">Hello user</p>
 <br/>
 <br/>
+<p th:text="|Marketplace: *${product.getMarketplace()}|">Marketplace</p>
+<p th:text="|VendorCode: ${product.getVendorCode()}|">VendorCode</p>
+<p th:text="|Start price: ${product.getPrice}|">Price</p>
 <form th:action="@{/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">
-    <p th:text="|Marketplace: *{marketplace}|">Marketplace</p>
-    <p th:text="|VendorCode: *{vendorCode}|">VendorCode</p>
     <label for="name">Name:
         <input id="name" type="text" name="name" th:value="*{name}">
     </label>
     <br/>
     <br/>
     <label for="description">Description:
-        <input th:size="*{description.length()+1}" id="description" type="text" name="name" th:value="*{description}">
+        <input th:size="*{description.length()+1}" id="description" type="text" name="description" th:value="*{description}">
     </label>
-    <p th:text="|Start price: *{price}|">Price</p>
+    <br/>
+    <br/>
     <label for="discount">Discount:
-        <input id="discount" type="text" name="name" th:value="*{discount}">
+        <input id="discount" type="text" name="discount" th:value="*{discount}">
     </label>
+    <br/>
+    <br/>
     <button type="submit">Update</button>
 </form>
 </body>
