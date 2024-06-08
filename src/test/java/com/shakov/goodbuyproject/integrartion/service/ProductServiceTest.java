@@ -26,7 +26,7 @@ public class ProductServiceTest extends IntegrationTestBase {
 
         assertTrue(actualResult.isPresent());
         actualResult.ifPresent(product ->
-                assertEquals("185777425", actualResult.get().getVendorCode()));
+                assertEquals("185777425", actualResult.get().getLink()));
 
     }
 }
