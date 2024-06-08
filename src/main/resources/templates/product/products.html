@@ -12,6 +12,10 @@
     <a th:href="@{'/products/' + ${product.id}}" th:text="${product.name}">Product</a>
 </div>
 
+<form action="/products/add">
+    <button type="submit">Add new product</button>
+</form>
+
 </body>
 
 </html>

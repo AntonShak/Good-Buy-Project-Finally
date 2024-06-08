@@ -1,6 +1,8 @@
 package com.shakov.goodbuyproject.http.controller;
 
+import com.shakov.goodbuyproject.dto.ProductCreateDto;
 import com.shakov.goodbuyproject.dto.ProductEditDto;
+import com.shakov.goodbuyproject.service.MarketplaceService;
 import com.shakov.goodbuyproject.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class ProductController {
 
     private final ProductService productService;
+    private final MarketplaceService marketplaceService;
+
 
     @GetMapping
     public String findAllProductsByUsername(Model model,
@@ -54,6 +58,23 @@ public class ProductController {
         }
         return "redirect:/products";
     }
+
+    @GetMapping("/add")
+    public String newProduct(Model model, @ModelAttribute ProductCreateDto productCreateDto) {
+        model.addAttribute("productCreateDto", productCreateDto);
+        model.addAttribute("marketplaces", marketplaceService.findAll());
+        return "product/newProduct";
+    }
+
+    @PostMapping("/add")
+    public String create(@ModelAttribute ProductCreateDto productCreateDto) {
+
+        return "redirect:";
+    }
+
+
+
+
 
 }
 

@@ -7,7 +7,12 @@ import lombok.Value;
 @Builder
 public class ProductCreateDto {
 
+    String marketplace;
     String vendorCode;
     Integer discount;
+    String name;
+    String description;
+    Double price;
+    String imageLink;
 
 }

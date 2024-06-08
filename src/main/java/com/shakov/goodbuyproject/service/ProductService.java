@@ -21,8 +21,6 @@ public class ProductService {
     private final ProductReadDtoMapper productReadDtoMapper;
     private final ProductFromEditDtoMapper productFromEditDtoMapper;
 
-
-
     public List<ProductReadDto> findAllProductsByUsername(String username) {
         return productRepository.findAllProductsByUsername(username).stream()
                 .map(productReadDtoMapper::map).toList();

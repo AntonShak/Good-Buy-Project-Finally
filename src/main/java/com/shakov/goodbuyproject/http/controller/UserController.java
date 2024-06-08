@@ -83,6 +83,7 @@ public class UserController {
 
 
 
+
     @PostMapping("/{id}/delete")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String delete(@PathVariable("id") Long id) {
