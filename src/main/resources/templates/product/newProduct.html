@@ -14,12 +14,12 @@
     <p>Marketplace:</p>
     <div th:each="marketplace : ${marketplaces}">
         <label th:for="${marketplace}" >
-        <input th:id="${marketplace}" type="radio" name="marketplace" th:value="${marketplace.name}" th:text="${marketplace.name}">
+            <input th:id="${marketplace}" type="radio" name="marketplace" th:value="${marketplace.name}" th:text="${marketplace.name}">
         </label>
     </div>
     <br/>
     <label for="vendorCode">Vendor code:
-        <input id="vendorCode" type="text" name="name" th:value="*{vendorCode}">
+        <input id="vendorCode" type="text" name="vendorCode" th:value="*{vendorCode}">
     </label>
     <br/>
     <br/>

@@ -1,12 +1,14 @@
 package com.shakov.goodbuyproject.dto;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 
-@Value
+
+@Data
 @Builder
 public class ProductCreateDto {
 
+    String customer;
     String marketplace;
     String vendorCode;
     Integer discount;

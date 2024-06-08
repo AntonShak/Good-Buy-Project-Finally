@@ -25,11 +25,11 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS product
 (
     id BIGSERIAL PRIMARY KEY,
-    vendor_code VARCHAR(32) NOT NULL UNIQUE ,
+    vendor_code VARCHAR(128) NOT NULL UNIQUE ,
     user_id BIGINT REFERENCES users(id) ON DELETE CASCADE ,
     marketplace_id BIGINT REFERENCES marketplace (id) ON DELETE CASCADE,
     name VARCHAR(64) NOT NULL,
-    description VARCHAR(255) NOT NULL ,
+    description VARCHAR(256) NOT NULL ,
     image VARCHAR(128),
     price FLOAT(2) NOT NULL,
     discount INT DEFAULT 10

@@ -1,8 +1,8 @@
 package com.shakov.goodbuyproject.service;
 
 import com.shakov.goodbuyproject.database.repository.ProductRepository;
-import com.shakov.goodbuyproject.dto.ProductEditDto;
-import com.shakov.goodbuyproject.dto.ProductReadDto;
+import com.shakov.goodbuyproject.dto.*;
+import com.shakov.goodbuyproject.mapper.ProductFromCreateDtoMapper;
 import com.shakov.goodbuyproject.mapper.ProductFromEditDtoMapper;
 import com.shakov.goodbuyproject.mapper.ProductReadDtoMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductReadDtoMapper productReadDtoMapper;
     private final ProductFromEditDtoMapper productFromEditDtoMapper;
+    private final ProductFromCreateDtoMapper productFromCreateDtoMapper;
 
     public List<ProductReadDto> findAllProductsByUsername(String username) {
         return productRepository.findAllProductsByUsername(username).stream()
@@ -55,6 +56,15 @@ public class ProductService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    @Transactional
+    public ProductReadDto create(ProductCreateDto productCreateDto) {
+        return Optional.of(productCreateDto)
+                .map(productFromCreateDtoMapper::map)
+                .map(productRepository::save)
+                .map(productReadDtoMapper::map)
+                .orElseThrow();
     }
 
 }

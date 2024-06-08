@@ -3,6 +3,7 @@ package com.shakov.goodbuyproject.http.controller;
 import com.shakov.goodbuyproject.dto.ProductCreateDto;
 import com.shakov.goodbuyproject.dto.ProductEditDto;
 import com.shakov.goodbuyproject.service.MarketplaceService;
+import com.shakov.goodbuyproject.service.OnlinerScrapperService;
 import com.shakov.goodbuyproject.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,14 +17,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
     private final MarketplaceService marketplaceService;
+    private final OnlinerScrapperService onlinerScrapperService;
 
 
-    @GetMapping
+    @GetMapping("/products")
     public String findAllProductsByUsername(Model model,
                                             @AuthenticationPrincipal UserDetails userDetails) {
 
@@ -32,7 +33,7 @@ public class ProductController {
         return "product/products";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/products/{id}")
     public String findById(@PathVariable("id") long id, Model model) {
 
         return productService.findById(id)
@@ -43,7 +44,7 @@ public class ProductController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/{id}/update")
+    @PostMapping("/products/{id}/update")
     public String update(@PathVariable("id") Long id, @ModelAttribute @Validated ProductEditDto productEditDto) {
 
         return productService.update(id, productEditDto)
@@ -51,7 +52,7 @@ public class ProductController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/{id}/delete")
+    @PostMapping("/products/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         if (!productService.delete(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -59,21 +60,22 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/products/add")
     public String newProduct(Model model, @ModelAttribute ProductCreateDto productCreateDto) {
         model.addAttribute("productCreateDto", productCreateDto);
         model.addAttribute("marketplaces", marketplaceService.findAll());
         return "product/newProduct";
     }
 
-    @PostMapping("/add")
-    public String create(@ModelAttribute ProductCreateDto productCreateDto) {
-
-        return "redirect:";
+    @PostMapping("/products/add")
+    public String firstStepCreate(@ModelAttribute ProductCreateDto productCreateDto,
+                                  @AuthenticationPrincipal UserDetails userDetails) {
+        productCreateDto.setCustomer(userDetails.getUsername());
+        onlinerScrapperService.finishCreateProductCreateDto(productCreateDto.getVendorCode(),
+                productCreateDto);
+        productService.create(productCreateDto);
+        return "redirect:/products";
     }
-
-
-
 
 
 }

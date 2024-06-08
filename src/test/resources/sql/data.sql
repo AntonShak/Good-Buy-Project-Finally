@@ -25,7 +25,7 @@ VALUES (1, '197046833', (SELECT id FROM users WHERE firstname = 'Tatsiana'),
        (5, 'KIT FB0319', (SELECT id FROM users WHERE firstname = 'Anton'),
         (SELECT id FROM marketplace WHERE name = 'Ozon'), 'Робот',
         'Робот для мытья окон Даджет dBot W200', 369, 11);
-SELECT SETVAL('marketplace_id_seq', (SELECT MAX(id) FROM product));
+SELECT SETVAL('product_id_seq', (SELECT MAX(id) FROM product));
 
 
 INSERT INTO users_marketplace(user_id, marketplace_id)
@@ -34,7 +34,7 @@ VALUES ((SELECT id FROM users WHERE username = 'shakov@gmail.com'), (SELECT id F
        ((SELECT id FROM users WHERE username = 'shakov@gmail.com'), (SELECT id FROM marketplace WHERE name = 'Onliner')),
        ((SELECT id FROM users WHERE username = 'shakova@gmail.com'), (SELECT id FROM marketplace WHERE name = 'Wildberries')),
        ((SELECT id FROM users WHERE username = 'shakova@gmail.com'), (SELECT id FROM marketplace WHERE name = 'Ozon'));
-SELECT SETVAL('marketplace_id_seq', (SELECT MAX(id) FROM users_marketplace));
+SELECT SETVAL('users_marketplace_id_seq', (SELECT MAX(id) FROM users_marketplace));
 
 
 

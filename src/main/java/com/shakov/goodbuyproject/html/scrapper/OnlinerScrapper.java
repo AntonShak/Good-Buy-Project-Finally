@@ -2,7 +2,9 @@ package com.shakov.goodbuyproject.html.scrapper;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OnlinerScrapper implements Scrapper {
 
 
