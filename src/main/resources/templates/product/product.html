@@ -11,7 +11,7 @@
 <br/>
 <br/>
 <p th:text="|Marketplace: ${product.getMarketplace()}|">Marketplace</p>
-<p th:text="|VendorCode: ${product.getVendorCode()}|">VendorCode</p>
+<p th:text="|Link: ${product.getLink()}|">Link</p>
 <p th:text="|Start price: ${product.getPrice}|">Price</p>
 <form th:action="@{/products/{productId}/update(productId=${product.id})}" method="post" th:object="${product}">
     <label for="name">Name:

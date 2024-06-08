@@ -15,7 +15,7 @@ public class ProductReadDtoMapper implements Mapper<Product, ProductReadDto> {
 
         return ProductReadDto.builder()
                 .id(from.getId())
-                .vendorCode(from.getVendorCode())
+                .link(from.getLink())
                 .name(from.getName())
                 .description(from.getDescription())
                 .price(from.getPrice())

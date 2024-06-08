@@ -8,7 +8,7 @@ import lombok.Value;
 public class ProductReadDto {
 
     Long id;
-    String vendorCode;
+    String link;
     String customer;
     String marketplace;
     String name;

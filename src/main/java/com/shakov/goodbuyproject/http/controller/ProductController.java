@@ -71,7 +71,7 @@ public class ProductController {
     public String firstStepCreate(@ModelAttribute ProductCreateDto productCreateDto,
                                   @AuthenticationPrincipal UserDetails userDetails) {
         productCreateDto.setCustomer(userDetails.getUsername());
-        onlinerScrapperService.finishCreateProductCreateDto(productCreateDto.getVendorCode(),
+        onlinerScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(),
                 productCreateDto);
         productService.create(productCreateDto);
         return "redirect:/products";

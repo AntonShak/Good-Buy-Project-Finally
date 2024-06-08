@@ -9,7 +9,7 @@ VALUES (1, 'shakov@gmail.com', '01-19-1992', 'Anton', 'Shakov', '+375291475900',
        (2, 'shakova@gmail.com', '02-22-1992', 'Tatsiana', 'Shakova', '+375291921614', 'USER');
 SELECT SETVAL('users_id_seq', (SELECT MAX(id) FROM users));
 
-INSERT INTO product (id, vendor_code, user_id, marketplace_id, name, description, price, discount)
+INSERT INTO product (id, link, user_id, marketplace_id, name, description, price, discount)
 VALUES (1, '197046833', (SELECT id FROM users WHERE firstname = 'Tatsiana'),
         (SELECT id FROM marketplace WHERE name = 'Wildberries'), 'Светильник',
         'Светильник настольный светодиодный, для компьютера', 138.50, 15),

@@ -36,7 +36,7 @@ public class ProductFromCreateDtoMapper implements Mapper<ProductCreateDto, Prod
         product.setCustomer(getUser(object.getCustomer()));
         product.setImage(object.getImageLink());
         product.setPrice(object.getPrice());
-        product.setVendorCode(object.getVendorCode());
+        product.setLink(object.getLink());
         product.setName(object.getName());
         product.setDescription(object.getDescription());
         product.setDiscount(object.getDiscount());

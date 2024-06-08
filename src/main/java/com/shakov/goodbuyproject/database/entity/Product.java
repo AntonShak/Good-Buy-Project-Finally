@@ -18,7 +18,7 @@ public class Product implements BaseEntity<Long>{
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String vendorCode;
+    private String link;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

@@ -10,7 +10,7 @@ public class ProductCreateDto {
 
     String customer;
     String marketplace;
-    String vendorCode;
+    String link;
     Integer discount;
     String name;
     String description;
