@@ -2,10 +2,7 @@ package com.shakov.goodbuyproject.http.controller;
 
 import com.shakov.goodbuyproject.dto.ProductCreateDto;
 import com.shakov.goodbuyproject.dto.ProductEditDto;
-import com.shakov.goodbuyproject.service.MarketplaceService;
-import com.shakov.goodbuyproject.service.OnlinerScrapperService;
-import com.shakov.goodbuyproject.service.ProductService;
-import com.shakov.goodbuyproject.service.WildberriesScrapperService;
+import com.shakov.goodbuyproject.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,14 +17,16 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final String ONLINER = "Onliner";
-    private final String WILDBERRIES = "Wildberries";
+    private static final String ONLINER = "Onliner";
+    private static final String WILDBERRIES = "Wildberries";
+    private static final String OZON = "Ozon";
 
 
     private final ProductService productService;
     private final MarketplaceService marketplaceService;
     private final OnlinerScrapperService onlinerScrapperService;
     private final WildberriesScrapperService wildberriesScrapperService;
+    private final OzonScrapperService ozonScrapperService;
 
 
     @GetMapping("/products")
@@ -79,12 +78,19 @@ public class ProductController {
 
         productCreateDto.setCustomer(userDetails.getUsername());
         if(productCreateDto.getMarketplace().equals(WILDBERRIES)){
-            wildberriesScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(), productCreateDto);
+            wildberriesScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(),
+                    productCreateDto);
             productService.create(productCreateDto);
         }
 
         if(productCreateDto.getMarketplace().equals(ONLINER)) {
             onlinerScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(),
+                    productCreateDto);
+            productService.create(productCreateDto);
+        }
+
+        if(productCreateDto.getMarketplace().equals(OZON)) {
+            ozonScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(),
                     productCreateDto);
             productService.create(productCreateDto);
         }

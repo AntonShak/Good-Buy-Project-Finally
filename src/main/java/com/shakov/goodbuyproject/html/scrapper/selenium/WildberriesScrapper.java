@@ -29,8 +29,8 @@ public class WildberriesScrapper implements SeleniumScrapper {
         String price = priceText.substring(0, priceText.length() - 3).replace(",", ".");
         values[0] = price;
 
-        WebElement nameElement = chromeDriver.findElement(By.xpath("//*[@id=\"route-content\"]/div/div[1]/div[1]/div[4]/div[2]/div[1]/div[1]/div[1]/div/div/h1/span[2]"));
-        String descriptionElements = nameElement.getText();
+        WebElement description = chromeDriver.findElement(By.xpath("//*[@id=\"route-content\"]/div/div[1]/div[1]/div[4]/div[2]/div[1]/div[1]/div[1]/div/div/h1/span[2]"));
+        String descriptionElements = description.getText();
         String[] arrayDescriptionElements = descriptionElements.split(" ");
         values[1] = arrayDescriptionElements[0];
         values[2] = descriptionElements;
