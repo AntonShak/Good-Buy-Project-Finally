@@ -5,6 +5,7 @@ import com.shakov.goodbuyproject.dto.ProductEditDto;
 import com.shakov.goodbuyproject.service.MarketplaceService;
 import com.shakov.goodbuyproject.service.OnlinerScrapperService;
 import com.shakov.goodbuyproject.service.ProductService;
+import com.shakov.goodbuyproject.service.WildberriesScrapperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,9 +20,14 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class ProductController {
 
+    private final String ONLINER = "Onliner";
+    private final String WILDBERRIES = "Wildberries";
+
+
     private final ProductService productService;
     private final MarketplaceService marketplaceService;
     private final OnlinerScrapperService onlinerScrapperService;
+    private final WildberriesScrapperService wildberriesScrapperService;
 
 
     @GetMapping("/products")
@@ -68,15 +74,22 @@ public class ProductController {
     }
 
     @PostMapping("/products/add")
-    public String firstStepCreate(@ModelAttribute ProductCreateDto productCreateDto,
+    public String create(@ModelAttribute ProductCreateDto productCreateDto,
                                   @AuthenticationPrincipal UserDetails userDetails) {
+
         productCreateDto.setCustomer(userDetails.getUsername());
-        onlinerScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(),
-                productCreateDto);
-        productService.create(productCreateDto);
+        if(productCreateDto.getMarketplace().equals(WILDBERRIES)){
+            wildberriesScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(), productCreateDto);
+            productService.create(productCreateDto);
+        }
+
+        if(productCreateDto.getMarketplace().equals(ONLINER)) {
+            onlinerScrapperService.finishCreateProductCreateDto(productCreateDto.getLink(),
+                    productCreateDto);
+            productService.create(productCreateDto);
+        }
+
         return "redirect:/products";
     }
-
-
 }
 

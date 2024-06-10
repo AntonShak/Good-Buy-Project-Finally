@@ -1,8 +1,8 @@
-package com.shakov.goodbuyproject.html.scrapper;
+package com.shakov.goodbuyproject.html.scrapper.jsoup;
 
 import org.jsoup.nodes.Document;
 
-public interface Scrapper {
+public interface JsoupScrapper {
 
         Double getPrice(Document htmlPage);
 

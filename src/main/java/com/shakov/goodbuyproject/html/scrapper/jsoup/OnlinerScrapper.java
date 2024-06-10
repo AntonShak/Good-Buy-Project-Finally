@@ -1,11 +1,11 @@
-package com.shakov.goodbuyproject.html.scrapper;
+package com.shakov.goodbuyproject.html.scrapper.jsoup;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OnlinerScrapper implements Scrapper {
+public class OnlinerScrapper implements JsoupScrapper {
 
 
     @Override

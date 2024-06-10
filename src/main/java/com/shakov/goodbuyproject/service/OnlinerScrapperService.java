@@ -1,8 +1,8 @@
 package com.shakov.goodbuyproject.service;
 
 import com.shakov.goodbuyproject.dto.ProductCreateDto;
-import com.shakov.goodbuyproject.html.connection.Connection;
-import com.shakov.goodbuyproject.html.scrapper.OnlinerScrapper;
+import com.shakov.goodbuyproject.html.connection.JsoupConnection;
+import com.shakov.goodbuyproject.html.scrapper.jsoup.OnlinerScrapper;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class OnlinerScrapperService {
 
     public void finishCreateProductCreateDto(String url, ProductCreateDto productCreateDto) {
 
-        Document htmlPage = Connection.getHtmlPage(url);
+        Document htmlPage = JsoupConnection.getHtmlPage(url);
         productCreateDto.setName(onlinerScrapper.getName(htmlPage));
         productCreateDto.setDescription(onlinerScrapper.getDescription(htmlPage));
         productCreateDto.setPrice(onlinerScrapper.getPrice(htmlPage));
