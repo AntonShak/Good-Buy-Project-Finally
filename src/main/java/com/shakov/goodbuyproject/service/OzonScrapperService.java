@@ -2,7 +2,6 @@ package com.shakov.goodbuyproject.service;
 
 import com.shakov.goodbuyproject.dto.ProductCreateDto;
 import com.shakov.goodbuyproject.html.scrapper.selenium.OzonScrapper;
-import com.shakov.goodbuyproject.html.scrapper.selenium.WildberriesScrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
